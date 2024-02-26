@@ -1,7 +1,8 @@
 // Login.js
 import React, { useState } from 'react';
 import axios from 'axios';
-import { TextField } from '@mui/material';
+import { TextField, Button, Typography, Container, Grid } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const Login = ({ onLogin }) => {
   const [username, setUsername] = useState('');
@@ -31,6 +32,14 @@ const Login = ({ onLogin }) => {
       <br />
       <TextField id="outlined-basic" label="Password:" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
       <br />
+
+      <Typography variant="body1" style={{ marginTop: '10px' }}>
+        Already have an account?{' '}
+        <Link href="/signup" underline="always">
+          Sign up
+        </Link>
+      </Typography>
+
       <button onClick={handleLogin}>Login</button>
     </div>
   );
