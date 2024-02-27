@@ -1,5 +1,5 @@
 // MergedLogin.js
-import React, { useState } from 'react';
+import React, { useState, useEffect  } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import axios from 'axios';
 import '../styles/Login.css'
@@ -22,7 +22,24 @@ import {
 } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-const defaultTheme = createTheme();
+
+
+const defaultTheme = createTheme(
+  {
+    palette: {
+      primary: {
+        main: '#ff5722', // Change the primary color
+      },
+      secondary: {
+        main: '#4caf50', // Change the secondary color
+      },
+      text: {
+        primary: '#000000', // Change the primary text color
+        secondary: '#000000', // Change the secondary text color
+      },
+  },
+  }
+);
 
 const MergedLogin = ({ onLogin }) => {
   const [formData, setFormData] = useState({
@@ -53,8 +70,17 @@ const MergedLogin = ({ onLogin }) => {
       console.error('Error during login:', error);
     }
   };
+  useEffect(() => {
+    // Add a class to the body element when the component mounts
+    document.body.classList.add('login-page');
 
+    // Remove the class when the component unmounts
+    return () => {
+      document.body.classList.remove('login-page');
+    };
+  }, []);
   return (
+    <div className="login-container">
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -66,7 +92,7 @@ const MergedLogin = ({ onLogin }) => {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
@@ -145,6 +171,7 @@ const MergedLogin = ({ onLogin }) => {
         </Box>
       </Container>
     </ThemeProvider>
+    </div>
   );
 };
 

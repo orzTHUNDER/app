@@ -1,6 +1,10 @@
-/* body{
-    background-color: rgb(252, 246, 239);
-} */
+.login-container{
+    /* background-color: rgb(252, 246, 239); */
+    /* background-image: url('../../public/loginbg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+     */
+}
 
 /* #login{
     border-color: black;
