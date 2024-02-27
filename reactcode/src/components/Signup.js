@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 const Signup = ({ onSignup }) => {
   const [userName, setUserName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('');
 
@@ -13,6 +14,7 @@ const Signup = ({ onSignup }) => {
       // Replace the URL with your Postman mock API endpoint for user registration
       const response = await axios.post('https://ba655539-99ca-4acf-9c3d-6041615e1efa.mock.pstmn.io/users', {
         userName,
+        email,
         password,
         role
       });
@@ -33,6 +35,15 @@ const Signup = ({ onSignup }) => {
         variant="outlined"
         value={userName}
         onChange={(e) => setUserName(e.target.value)}
+        style={{ margin: '20px 0' }}
+      />
+      <br />
+      <TextField
+        label="Email"
+        type="email"
+        variant="outlined"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
         style={{ margin: '20px 0' }}
       />
       <br />
