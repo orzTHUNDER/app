@@ -7,18 +7,18 @@ const Signup = ({ onSignup }) => {
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('');
+  const [userType, setUserType] = useState('');
 
   const handleSignup = async () => {
     try {
       // Replace the URL with your Postman mock API endpoint for user registration
-      const response = await axios.post('https://ba655539-99ca-4acf-9c3d-6041615e1efa.mock.pstmn.io/users', {
+      const response = await axios.post('http://localhost:8080/registration', {
         userName,
         email,
         password,
-        role
+        userType
       });
-
+console.log(response);
       // For simplicity, assuming the API returns the newly created user
       const newUser = response.data;
       onSignup(newUser);
@@ -57,15 +57,15 @@ const Signup = ({ onSignup }) => {
       />
       <br />
       <Select
-        value={role}
-        onChange={(e) => setRole(e.target.value)}
+        value={userType}
+        onChange={(e) => setUserType(e.target.value)}
         variant="outlined"
         displayEmpty
         style={{width: '100%',
         margin: '10px 0',}}
       >
         <MenuItem value="" disabled>
-          Select Role
+          Select User Type
         </MenuItem>
         <MenuItem value="Participant">Participant</MenuItem>
         <MenuItem value="Panelist">Panelist</MenuItem>
