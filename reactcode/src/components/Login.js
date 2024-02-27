@@ -1,14 +1,26 @@
 // MergedLogin.js
 import React, { useState } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import axios from 'axios';
+import '../styles/Login.css'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
+import {
+  Container,
+  CssBaseline,
+  Avatar,
+  FormControlLabel,
+  Checkbox,
+  Link,
+  Select,
+  MenuItem,
+  InputLabel,
+} from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Container, CssBaseline, Avatar, FormControlLabel, Checkbox, Link } from '@mui/material';
 
 const defaultTheme = createTheme();
 
@@ -16,6 +28,7 @@ const MergedLogin = ({ onLogin }) => {
   const [formData, setFormData] = useState({
     username: '',
     password: '',
+    role: 'participant', // Default role is participant
   });
 
   const handleChange = (e) => {
@@ -61,6 +74,23 @@ const MergedLogin = ({ onLogin }) => {
           </Typography>
 
           <form style={{ width: '100%', marginTop: '1em' }}>
+            
+            {/* Select dropdown for role */}
+            <InputLabel htmlFor="role">Role</InputLabel>
+            <Select
+              fullWidth
+              id="role"
+              label="Role"
+              value={formData.role}
+              onChange={handleChange}
+              name="role"
+              sx={{ marginBottom: '1em' }}
+            >
+              <MenuItem value="participant">Participant</MenuItem>
+              <MenuItem value="panelist">Panelist</MenuItem>
+              <MenuItem value="judge">Judge</MenuItem>
+            </Select>
+
             <TextField
               margin="normal"
               required
@@ -85,6 +115,7 @@ const MergedLogin = ({ onLogin }) => {
               value={formData.password}
               onChange={handleChange}
             />
+
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
@@ -105,7 +136,7 @@ const MergedLogin = ({ onLogin }) => {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+              <Link component={RouterLink} to="./Signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
