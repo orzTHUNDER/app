@@ -1,17 +1,33 @@
-// Login.js
+// MergedLogin.js
 import React, { useState } from 'react';
 import axios from 'axios';
-import { TextField, Button, Typography, Container } from '@mui/material';
-import { Link } from 'react-router-dom';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Container, CssBaseline, Avatar, FormControlLabel, Checkbox, Link } from '@mui/material';
 
-const Login = ({ onLogin }) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+const defaultTheme = createTheme();
 
-  const handleLogin = async () => {
+const MergedLogin = ({ onLogin }) => {
+  const [formData, setFormData] = useState({
+    username: '',
+    password: '',
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleAction = async () => {
     try {
       // Replace the URL with your Postman mock API endpoint for user authentication
-      const response = await axios.get(`https://ba655539-99ca-4acf-9c3d-6041615e1efa.mock.pstmn.io/users?username=${username}&password=${password}`);
+      const response = await axios.get(
+        `https://ba655539-99ca-4acf-9c3d-6041615e1efa.mock.pstmn.io/users?username=${formData.username}&password=${formData.password}`
+      );
 
       // For simplicity, assuming the API returns the user if found
       const loggedInUser = response.data[0];
@@ -26,23 +42,79 @@ const Login = ({ onLogin }) => {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
-      <TextField id="outlined-basic" label="Username:" variant="outlined" value={username} onChange={(e) => setUsername(e.target.value)}/>
-      <br />
-      <TextField id="outlined-basic" label="Password:" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-      <br />
+    <ThemeProvider theme={defaultTheme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Login
+          </Typography>
 
-      <Typography variant="body1" style={{ marginTop: '10px' }}>
-        Already have an account?{' '}
-        <Link href="/signup" underline="always">
-          Sign up
-        </Link>
-      </Typography>
-
-      <button onClick={handleLogin}>Login</button>
-    </div>
+          <form style={{ width: '100%', marginTop: '1em' }}>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="username"
+              label="Username"
+              name="username"
+              autoComplete="username"
+              autoFocus
+              value={formData.username}
+              onChange={handleChange}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              value={formData.password}
+              onChange={handleChange}
+            />
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
+            />
+            <Button
+              type="button"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+              onClick={handleAction}
+            >
+              Login
+            </Button>
+            <Grid container>
+              <Grid item xs>
+                <Link href="#" variant="body2">
+                  Forgot password?
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link href="#" variant="body2">
+                  {"Don't have an account? Sign Up"}
+                </Link>
+              </Grid>
+            </Grid>
+          </form>
+        </Box>
+      </Container>
+    </ThemeProvider>
   );
 };
 
-export default Login;
+export default MergedLogin;

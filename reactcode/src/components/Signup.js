@@ -12,7 +12,7 @@ const Signup = ({ onSignup }) => {
   const handleSignup = async () => {
     try {
       // Replace the URL with your Postman mock API endpoint for user registration
-      const response = await axios.post('http://localhost:8080/registration', {
+      const response = await axios.post('https://ba655539-99ca-4acf-9c3d-6041615e1efa.mock.pstmn.io/users', {
         userName,
         email,
         password,
