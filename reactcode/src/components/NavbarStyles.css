@@ -1,0 +1,9 @@
+.navbar-button {
+    margin-right: 30px; /* Adjust the margin as needed */
+    
+  }
+  .navbar-background {
+    background-color: #010211 !important; /* Dark Blue color */ 
+    color: #f3e8e8;
+    position: top !important; /* Text color, adjust as needed */
+  }
