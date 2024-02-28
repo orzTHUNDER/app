@@ -19,7 +19,20 @@ import {
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
-const defaultTheme = createTheme();
+const defaultTheme = createTheme({
+  palette: {
+    primary: {
+      main: '#1C0063', // Change the primary color
+    },
+    secondary: {
+      main: '#4caf50', // Change the secondary color
+    },
+    text: {
+      primary: '#000000', // Change the primary text color
+      secondary: '#000000', // Change the secondary text color
+    },
+  },
+});
 
 const SignUp = ({ onSignup }) => {
   const [firstName, setFirstName] = React.useState('');
@@ -63,6 +76,7 @@ const SignUp = ({ onSignup }) => {
               t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
             backgroundSize: 'cover',
             backgroundPosition: 'center',
+            position: 'relative'
           }}
         />
         <Grid item xs={12} sm={8} md={5} component={Container} maxWidth="xs">
@@ -75,7 +89,7 @@ const SignUp = ({ onSignup }) => {
               alignItems: 'center',
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
@@ -161,7 +175,7 @@ const SignUp = ({ onSignup }) => {
               </Button>
               <Grid container justifyContent="flex-end">
                 <Grid item>
-                  <Link to="/login" variant="body2">
+                  <Link to="/Login" variant="body2">
                     Already have an account? Sign in
                   </Link>
                 </Grid>

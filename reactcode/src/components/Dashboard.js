@@ -10,10 +10,10 @@ const Dashboard = () => {
       <div>
         <h2>Choose your role:</h2>
         <button id='participant-signup'>
-            <Link to="/signup/participant">Participant Signup</Link>
+            <Link to="/Signup">Participant Signup</Link>
         </button>
         <button id='participant-login'>
-            <Link to="/login/participant">Participant Login</Link>
+            <Link to="/Login/">Participant Login</Link>
         </button>
         <button id='panelist'>
             <Link to="/login/panelist">Panelist Login</Link>
