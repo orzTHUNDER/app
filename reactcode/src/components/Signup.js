@@ -103,7 +103,7 @@ const SignUp = ({ onSignup }) => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </Grid>
-              {/* <Grid item xs={12}>
+              { <Grid item xs={12}>
                 <Select
                   value={userType}
                   onChange={(e) => setUserType(e.target.value)}
@@ -119,7 +119,7 @@ const SignUp = ({ onSignup }) => {
                   <MenuItem value="Panelist">Panelist</MenuItem>
                   <MenuItem value="Judge">Judge</MenuItem>
                 </Select>
-              </Grid> */}
+              </Grid> }
               {/* <Grid item xs={12}>
                 <FormControlLabel
                   control={<Checkbox checked={allowExtraEmails} onChange={(e) => setAllowExtraEmails(e.target.checked)} color="primary" />}

@@ -1,8 +1,6 @@
-// MergedLogin.js
-import React, { useState, useEffect  } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import axios from 'axios';
-import '../styles/Login.css'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -10,8 +8,7 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import {
-  Container,
-  CssBaseline,
+  Paper,
   Avatar,
   FormControlLabel,
   Checkbox,
@@ -19,27 +16,26 @@ import {
   Select,
   MenuItem,
   InputLabel,
+  Container,
+  CssBaseline,
+  ThemeProvider,
+  createTheme,
 } from '@mui/material';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-
-
-const defaultTheme = createTheme(
-  {
-    palette: {
-      primary: {
-        main: '#ff5722', // Change the primary color
-      },
-      secondary: {
-        main: '#4caf50', // Change the secondary color
-      },
-      text: {
-        primary: '#000000', // Change the primary text color
-        secondary: '#000000', // Change the secondary text color
-      },
+const defaultTheme = createTheme({
+  palette: {
+    primary: {
+      main: '#1C0063', // Change the primary color
+    },
+    secondary: {
+      main: '#4caf50', // Change the secondary color
+    },
+    text: {
+      primary: '#000000', // Change the primary text color
+      secondary: '#000000', // Change the secondary text color
+    },
   },
-  }
-);
+});
 
 const MergedLogin = ({ onLogin }) => {
   const [formData, setFormData] = useState({
@@ -70,108 +66,122 @@ const MergedLogin = ({ onLogin }) => {
       console.error('Error during login:', error);
     }
   };
-  useEffect(() => {
-    // Add a class to the body element when the component mounts
-    document.body.classList.add('login-page');
 
-    // Remove the class when the component unmounts
+  useEffect(() => {
+    document.body.classList.add('login-page');
     return () => {
       document.body.classList.remove('login-page');
     };
   }, []);
+
   return (
-    <div className="login-container">
     <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
+      <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
-        <Box
+        <Grid
+          item
+          xs={false}
+          sm={4}
+          md={7}
           sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            display: 'flex', // Add this line
+            justifyContent: 'flex-end', // Add this line
+            backgroundImage: 'url(/loginbg2.jpg)',
+            backgroundRepeat: 'no-repeat',
+            backgroundColor: (t) =>
+              t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
+            backgroundSize: 'cover',
+            position:'relative'
           }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Login
-          </Typography>
-
-          <form style={{ width: '100%', marginTop: '1em' }}>
-            
-            {/* Select dropdown for role */}
-            <InputLabel htmlFor="role">Role</InputLabel>
-            <Select
-              fullWidth
-              id="role"
-              label="Role"
-              value={formData.role}
-              onChange={handleChange}
-              name="role"
-              sx={{ marginBottom: '1em' }}
-            >
-              <MenuItem value="participant">Participant</MenuItem>
-              <MenuItem value="panelist">Panelist</MenuItem>
-              <MenuItem value="judge">Judge</MenuItem>
-            </Select>
-
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="username"
-              label="Username"
-              name="username"
-              autoComplete="username"
-              autoFocus
-              value={formData.username}
-              onChange={handleChange}
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              value={formData.password}
-              onChange={handleChange}
-            />
-
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              type="button"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-              onClick={handleAction}
-            >
+        />
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+          <Box
+            sx={{
+              my: 8,
+              mx: 4,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
               Login
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
+            </Typography>
+
+            <form style={{ width: '100%', marginTop: '1em' }}>
+              <InputLabel htmlFor="role">Role</InputLabel>
+              <Select
+                fullWidth
+                id="role"
+                label="Role"
+                value={formData.role}
+                onChange={handleChange}
+                name="role"
+                sx={{ marginBottom: '1em' }}
+              >
+                <MenuItem value="participant">Participant</MenuItem>
+                <MenuItem value="panelist">Panelist</MenuItem>
+                <MenuItem value="judge">Judge</MenuItem>
+              </Select>
+
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="username"
+                label="Username"
+                name="username"
+                autoComplete="username"
+                autoFocus
+                value={formData.username}
+                onChange={handleChange}
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                value={formData.password}
+                onChange={handleChange}
+              />
+
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me"
+              />
+              <Button
+                type="button"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+                onClick={handleAction}
+              >
+                Login
+              </Button>
+              <Grid container>
+                <Grid item xs>
+                  <Link href="#" variant="body2">
+                    Forgot password?
+                  </Link>
+                </Grid>
+                <Grid item>
+                  <Link component={RouterLink} to="/signup" variant="body2">
+                    {"Don't have an account? Sign Up"}
+                  </Link>
+                </Grid>
               </Grid>
-              <Grid item>
-              <Link component={RouterLink} to="./Signup" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
-          </form>
-        </Box>
-      </Container>
+            </form>
+          </Box>
+        </Grid>
+      </Grid>
     </ThemeProvider>
-    </div>
   );
 };
 
