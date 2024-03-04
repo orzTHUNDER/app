@@ -8,4 +8,6 @@ import com.sb.demo.bean.Team;
 @Repository
 public interface TeamRepo extends JpaRepository<Team, Integer> {
 
+    boolean existsByTeamName(String teamName);
+
 }

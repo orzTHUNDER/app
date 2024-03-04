@@ -2,6 +2,8 @@ package com.sb.demo.bean;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -18,6 +20,7 @@ public class Team {
     private String teamName;
     private int leaderId;
     @OneToMany(mappedBy = "team", fetch = FetchType.EAGER)
+    @JsonBackReference
     private List<User> members;
 
     public Team() {
