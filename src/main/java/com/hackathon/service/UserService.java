@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.hackathon.model.User;
@@ -16,11 +17,16 @@ public class UserService {
     @Autowired
     private UserRepo userRepository;
 
+    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
     public ResponseEntity<?> signUp(User user) {
         System.out.println("----------------------------------------------------");
         if (userRepository.existsByEmail(user.getEmail())) {
             return ResponseEntity.badRequest().body("Email is already in use");
         }
+
+        String hashedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(hashedPassword);
 
         User savedUser = userRepository.saveAndFlush(user);
 
@@ -34,7 +40,7 @@ public class UserService {
     public ResponseEntity<?> login(User user) {
         if (userRepository.existsByEmail(user.getEmail())) {
             User u = userRepository.findByEmail(user.getEmail());
-            if (u.getPassword().equals(user.getPassword())) {
+            if (passwordEncoder.matches(user.getPassword(), u.getPassword())) {
                 Map<String, Object> response = new HashMap<>();
                 response.put("message", "Login Successfull!");
                 response.put("user", u);
